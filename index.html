@@ -1,14 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Practic Javascript</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+    integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>Practic Javascript</title>
 </head>
+
 <body>
- 
-  <button onclick="a()">Click</button>  
-    <script src="script.js"></script>
+  <style>
+    #id {
+      display: grid;
+      grid-template-columns: repeat(5, 300px);
+      gap: 30px;
+      justify-content: center;
+      align-items: center;
+      
+    }#id .fast{
+      border: 2px solid ;
+      display: flex;
+      flex-direction: column;
+      width: 250px;
+      height: 300px;
+      overflow: scroll;
+      
+    }
+    #id .fast div {
+      
+      padding: 5px;
+    }
+    #id .fast img{
+width: 200px;
+margin: 10px auto;
+    }
+   
+    @media(max-width:1800px) {
+      #id {
+        grid-template-columns: repeat(4, 300px);
+      }}
+    @media(max-width:1500px) {
+      #id {
+        grid-template-columns: repeat(3, 300px);
+      }}
+    @media(max-width:1024px) {
+      #id {
+        grid-template-columns: repeat(2, 300px);
+      }}
+
+    @media(max-width:650px) {
+      #id {
+        grid-template-columns: repeat(1, 300px);
+      }
+    }
+    
+  </style>
+  <h1>Name</h1>
+  <div class="add">
+
+    <div id="id"></div>
+  </div>
+  <script>
+    fetch('https://randomuser.me/api/?results=5000')
+      .then(res => res.json())
+      .then(data => {
+
+
+        let app = document.getElementById("id")
+        let user = data.results;
+        // let {first,title,last}=user.name;
+        // let {large,medium,thumbnail}=user.picture;
+        // let fullN=`${title} ${first} ${last}`;
+        // let nam=document.createElement('h2');
+        // nam.innerHTML=`
+        // ${title} ${first} ${last}
+        // <img src=${large}>
+
+        // `;
+        // app.appendChild(nam);
+        // console.log(fullN,user.name,user);
+
+        // console.log(user)
+        let allM = () => {
+          return app.innerHTML = user.map((x) => {
+            let img = x.picture.large;
+            let gen = x.gender
+            let { first, title, last } = x.name;
+            let name = " Name :" + " " + title + " " + first + " " + last
+            console.log(x)
+            let email = x.email;
+            let phone = x.phone;
+
+            return `
+            <div class="fast">
+                 <img src=${img} alt="">
+                 <div>
+                <h5>${name}</h5>
+                <p> Gender : ${gen}</p>
+                <p>phone: ${phone}</p>
+                <p> Email: ${email}</p>
+                <p>Location : ${x.location.country} ${x.location.state} ${x.location.city}</p>
+                <p> Legistered: ${x.registered.age}</p>
+                </div>
+                </div>
+            
+            
+            `
+
+          }).join('')
+        };
+        allM()
+
+      })
+  </script>
+
+  <!-- <button onclick="a()">Click</button>   -->
+  <script src="script.js"></script>
 </body>
+
 </html>
